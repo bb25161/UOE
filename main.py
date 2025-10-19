@@ -6,14 +6,8 @@ from typing import List
 
 # Import concrete implementations and the service
 # Assuming the 'src' directory is in the same level as main.py
-from src.implementations import (
-    SimpleListLogSource,
-    SimpleRuleBasedDetector,
-    EmailNotificationChannel,
-    IVRNotificationChannel
-)
-# --- Import the AI detector ---
-from src.ai_detector import VertexAIDetector
+
+
 
 from src.services import FraudMonitoringService
 from src.interfaces import LogSource, FraudDetector, NotificationChannel # Needed for type hint
