@@ -1,0 +1,11 @@
+# Core dependencies (none for the basic simulation)
+
+# Testing dependencies
+pytest>=7.0.0
+pytest-mock>=3.5.0
+
+# Cloud AI integration (Uncomment if using Vertex AI)
+# google-cloud-aiplatform>=1.18.1
+
+# Optional for real IVR implementation (Uncomment if using Twilio)
+# twilio>=7.0.0
