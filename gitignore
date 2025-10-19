@@ -1,0 +1,50 @@
+# Python bytecode ve cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Sanal ortam klasörleri
+venv/
+env/
+.venv/
+.env/
+
+# IDE ve OS dosyaları
+.idea/
+.vscode/
+*.swp
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+
+# Test çıktıları ve raporları
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# Hassas bilgiler (varsa)
+*.local
+secrets/
+*.key
+*.pem
+credentials.json
+.env
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+wheels/
+pip-wheel-metadata/
+
+# Paketleyici dosyaları
+*.manifest
+*.spec
+
+# Log dosyaları
+*.log
