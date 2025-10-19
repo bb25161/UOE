@@ -11,6 +11,9 @@ from src.interfaces import FraudDetector
 
 logger = logging.getLogger(__name__)
 
+# OOP Principle: Abstraction, Liskov Substitution Principle (LSP), Encapsulation
+# Unit Reference: Unit 5 – Secure Software Design & AI Integration
+# Explanation: Conforms to FraudDetector while hiding ML/Vertex API details behind is_anomaly().
 class VertexAIDetector(FraudDetector):
     """
     Concrete implementation of FraudDetector using Google Cloud Vertex AI Anomaly Detection.
@@ -18,7 +21,10 @@ class VertexAIDetector(FraudDetector):
     Ref: Google Cloud Vertex AI Documentation.
     Security Note: Relies on ADC or service account permissions. Manage endpoint details securely.
     """
-    def __init__(self, project: str, endpoint_id: str, location: str = "europe-west4"):
+    # OOP Principle: Dependency Injection (constructor)
+# Unit Reference: Unit 6 – Dependency Inversion & IoC
+# Explanation: Injects external configuration (project, endpoint_id, location) rather than hard-coding.
+def __init__(self, project: str, endpoint_id: str, location: str = "europe-west4"):
         """Initializes the Vertex AI client and endpoint."""
         if not project or not endpoint_id:
             raise ValueError("GCP Project ID and Vertex AI Endpoint ID are required.")
@@ -39,7 +45,10 @@ class VertexAIDetector(FraudDetector):
 
     # --- Method Implementation (Fulfilling Contract - AI Strategy) ---
     # This is the AI-based implementation of the is_anomaly check.
-    def is_anomaly(self, log_entry: Dict[str, Any]) -> bool:
+    # OOP Principle: Strategy behavior via interface method
+# Unit Reference: Unit 4 – Strategy/Policy Objects
+# Explanation: Decision algorithm exposed via abstract method; enables rule-based or AI strategies.
+def is_anomaly(self, log_entry: Dict[str, Any]) -> bool:
         """Sends the log entry data to Vertex AI for anomaly prediction."""
         try:
             # --- Data Preparation (Adapt based on your model's expected features) ---

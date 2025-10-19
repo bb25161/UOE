@@ -62,6 +62,8 @@ def mock_notification_channels(mocker: Callable[..., Generator[MockerFixture, No
 
 # --- Tests for FraudMonitoringService ---
 
+# Testing Focus: Verifies DIP via mocks; constructor injection accepts abstractions.
+# Unit Reference: Unit 8 – Testing & Quality
 def test_service_initialization_valid(mock_log_source: Any, mock_detector_no_anomaly: Any, mock_notification_channels: list):
     """Test successful initialization with valid mocked dependencies."""
     try:
@@ -85,6 +87,8 @@ def test_service_initialization_invalid_dependencies(mock_log_source: Any, mock_
     with pytest.raises(TypeError, match="channels must be a non-empty list"): # List contains non-channel object
         FraudMonitoringService(log_source=mock_log_source, detector=mock_detector_no_anomaly, channels=[mock_notification_channels[0], "not a channel"])
 
+# Testing Focus: Validates polymorphism (multiple channels) & orchestration flow.
+# Unit Reference: Unit 8 – Testing & Quality
 def test_monitor_and_alert_anomaly_detected_calls_detector_and_channels(mock_log_source: Any, mock_detector_anomaly: Any, mock_notification_channels: list):
     """Test alert sending logic when an anomaly is detected."""
     service = FraudMonitoringService(

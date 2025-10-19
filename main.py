@@ -1,21 +1,30 @@
+# ================================================================
 # File: main.py
+# Project: Fraud Detection Simulation System (University of Essex)
+# Author: Prepared by the student (MSc Cyber Security)
+# Description:
+#   Main entry point for the Capstone Project demonstrating
+#   advanced Object-Oriented Programming and secure software design.
+# ================================================================
+
 import logging
 import os
 import time
 from typing import List
 
+# === Import Concrete Implementations and Interfaces ===
+# Demonstrates Abstraction & Dependency Injection
 from src.implementations import (
     SimpleListLogSource,
     SimpleRuleBasedDetector,
     EmailNotificationChannel,
-    IVRNotificationChannel,
-    summarize_detection
+    IVRNotificationChannel
 )
 from src.ai_detector import VertexAIDetector
 from src.services import FraudMonitoringService
 from src.interfaces import LogSource, FraudDetector, NotificationChannel
 
-# --- Renkli terminal desteği ---
+# === Colorama setup for colored terminal output (UX enhancement) ===
 try:
     from colorama import init, Fore, Style
     init(autoreset=True)
@@ -25,18 +34,20 @@ except ImportError:
     class Style:
         RESET_ALL = ""
 
-
-# --- Logging yapılandırması ---
+# === Logging Configuration ===
+# Demonstrates encapsulation of logging logic for consistent output
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
-    force=True  # Önceden tanımlı handler'ları sıfırlar
+    force=True
 )
 logger = logging.getLogger(__name__)
 
-
+# ================================================================
+# Function: main()
+# ================================================================
 def main():
-    """Main application entry point"""
+    """Main entry point for the fraud detection simulation."""
     print(f"\n{Fore.CYAN}{'='*60}")
     print(f"{Fore.YELLOW}💡 Fraud Detection Simulation System (University of Essex)")
     print(f"{Fore.CYAN}{'-'*60}")
@@ -50,7 +61,9 @@ def main():
     logger.info("Setting up the Fraud Monitoring System...")
 
     try:
-        # --- Configuration ---
+        # === Configuration Section ===
+        # These environment variables demonstrate configurability
+        # (aligns with Secure-by-Design and Dependency Injection)
         log_source_type = os.getenv("LOG_SOURCE_TYPE", "simple_list")
         detector_type = os.getenv("DETECTOR_TYPE", "rule_based")
 
@@ -70,14 +83,16 @@ def main():
         ivr_sid = os.getenv("TWILIO_SID", "ACxxxx_placeholder")
         ivr_token = os.getenv("TWILIO_TOKEN", "authxxxx_placeholder")
 
-        # --- Log Source ---
+        # === Log Source Setup ===
+        # Demonstrates Abstraction and Factory-like initialization
         logger.info(f"Configuring Log Source: {log_source_type}")
         if log_source_type == "simple_list":
             log_source = SimpleListLogSource()
         else:
             raise ValueError(f"Unknown log_source_type: {log_source_type}")
 
-        # --- Detector ---
+        # === Detector Setup ===
+        # Demonstrates Strategy Pattern & Open/Closed Principle
         logger.info(f"Configuring Detector: {detector_type}")
         if detector_type == "rule_based":
             fraud_detector = SimpleRuleBasedDetector(threshold=detector_threshold)
@@ -92,7 +107,8 @@ def main():
         else:
             raise ValueError(f"Unknown detector_type: {detector_type}")
 
-        # --- Notification Channels ---
+        # === Notification Channels Setup ===
+        # Demonstrates Polymorphism – multiple channels share the same interface
         logger.info("Configuring Notification Channels...")
         notification_channels: List[NotificationChannel] = []
 
@@ -111,7 +127,8 @@ def main():
         )
         logger.info(f"{Fore.GREEN}📞 IVR notification channel added (simulated).")
 
-        # --- Fraud Monitoring Service Initialization ---
+        # === Dependency Injection in Action ===
+        # Core architecture principle: FraudMonitoringService receives its dependencies
         monitoring_service = FraudMonitoringService(
             log_source=log_source,
             detector=fraud_detector,
@@ -119,25 +136,21 @@ def main():
         )
         logger.info("FraudMonitoringService initialized successfully.")
 
-        # --- Run Main Logic ---
+        # === Monitoring Execution ===
         logger.info("Starting monitoring cycle...\n")
-        logs = log_source.get_logs()
-        anomalies = fraud_detector.detect(logs)
-
-        for anomaly in anomalies:
-            message = "Fraud alert detected!"
-            for channel in notification_channels:
-                channel.send_alert(message, anomaly)
-
-        summarize_detection(logs, anomalies, start_time)
+        monitoring_service.monitor_and_alert()
 
         elapsed = time.time() - start_time
         logger.info(f"{Fore.CYAN}✅ Fraud monitoring cycle completed in {elapsed:.2f} seconds.")
 
     except Exception as e:
+        # Encapsulation of error handling for safe execution
         logger.critical(f"{Fore.RED}❌ Critical Error: {e}", exc_info=True)
 
 
+# ================================================================
+# Script Entrypoint (ensures reusability in other modules/tests)
+# ================================================================
 if __name__ == "__main__":
     print(">>> Debug: main.py started")
     main()

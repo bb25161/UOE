@@ -119,6 +119,8 @@ def test_email_init_invalid_email():
 
 # --- Test Vertex AI Detector Initialization (if available) ---
 @pytest.mark.skipif(not VERTEX_AI_AVAILABLE, reason="google-cloud-aiplatform not installed or import failed")
+# Testing Focus: Constructor validation; enforces DI preconditions.
+# Unit Reference: Unit 8 – Testing & Quality
 def test_vertex_ai_detector_init_missing_params():
     """Test Vertex AI detector raises ValueError if params are missing."""
     with pytest.raises(ValueError, match="Project ID and Vertex AI Endpoint ID are required"):

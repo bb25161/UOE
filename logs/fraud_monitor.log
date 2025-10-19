@@ -17,3 +17,35 @@
 2025-10-19 17:22:26,338 - INFO - 📧 Email sent to alert-team@example.com: Fraud alert detected! | Tx ID: t1004, User: u04, Amount: 8200.0
 2025-10-19 17:22:26,638 - INFO - 📞 IVR call to +1234567890 (simulated): Fraud alert detected! | Tx ID: t1004, User: u04
 2025-10-19 17:22:26,639 - INFO - Summary -> Logs: 5, Anomalies: 2, Duration: 1.503s
+2025-10-19 19:57:07,253 - INFO - Fetching logs from SimpleListLogSource...
+2025-10-19 19:57:07,754 - WARNING - ⚠️ ANOMALY DETECTED: Tx ID t1002 | Amount: 5500.0 | User: u02
+2025-10-19 19:57:07,754 - WARNING - ⚠️ ANOMALY DETECTED: Tx ID t1004 | Amount: 8200.0 | User: u04
+2025-10-19 19:57:07,954 - INFO - 📧 Email sent to alert-team@example.com: Fraud alert detected! | Tx ID: t1002, User: u02, Amount: 5500.0
+2025-10-19 19:57:08,254 - INFO - 📞 IVR call to +1234567890 (simulated): Fraud alert detected! | Tx ID: t1002, User: u02
+2025-10-19 19:57:08,455 - INFO - 📧 Email sent to alert-team@example.com: Fraud alert detected! | Tx ID: t1004, User: u04, Amount: 8200.0
+2025-10-19 19:57:08,755 - INFO - 📞 IVR call to +1234567890 (simulated): Fraud alert detected! | Tx ID: t1004, User: u04
+2025-10-19 19:57:08,755 - INFO - Summary -> Logs: 5, Anomalies: 2, Duration: 1.502s
+2025-10-19 19:58:26,996 - INFO - Fetching logs from SimpleListLogSource...
+2025-10-19 19:58:27,496 - WARNING - ⚠️ ANOMALY DETECTED: Tx ID t1002 | Amount: 5500.0 | User: u02
+2025-10-19 19:58:27,497 - WARNING - ⚠️ ANOMALY DETECTED: Tx ID t1004 | Amount: 8200.0 | User: u04
+2025-10-19 19:58:27,697 - INFO - 📧 Email sent to alert-team@example.com: Fraud alert detected! | Tx ID: t1002, User: u02, Amount: 5500.0
+2025-10-19 19:58:27,997 - INFO - 📞 IVR call to +1234567890 (simulated): Fraud alert detected! | Tx ID: t1002, User: u02
+2025-10-19 19:58:28,198 - INFO - 📧 Email sent to alert-team@example.com: Fraud alert detected! | Tx ID: t1004, User: u04, Amount: 8200.0
+2025-10-19 19:58:28,498 - INFO - 📞 IVR call to +1234567890 (simulated): Fraud alert detected! | Tx ID: t1004, User: u04
+2025-10-19 19:58:28,499 - INFO - Summary -> Logs: 5, Anomalies: 2, Duration: 1.503s
+2025-10-19 20:51:35,909 - INFO - Fetching logs from SimpleListLogSource...
+2025-10-19 20:53:50,579 - INFO - Fetching logs from SimpleListLogSource...
+2025-10-19 20:53:51,280 - INFO - 📧 Email sent to alert-team@example.com: Fraud alert detected! | Tx ID: t1002, User: u02, Amount: 5500.0 | Tx ID: t1002, User: u02, Amount: 5500.0
+2025-10-19 20:53:51,580 - INFO - 📞 IVR call to +1234567890 (simulated): Fraud alert detected! | Tx ID: t1002, User: u02, Amount: 5500.0 | Tx ID: t1002, User: u02
+2025-10-19 20:53:51,781 - INFO - 📧 Email sent to alert-team@example.com: Fraud alert detected! | Tx ID: t1004, User: u04, Amount: 8200.0 | Tx ID: t1004, User: u04, Amount: 8200.0
+2025-10-19 20:53:52,081 - INFO - 📞 IVR call to +1234567890 (simulated): Fraud alert detected! | Tx ID: t1004, User: u04, Amount: 8200.0 | Tx ID: t1004, User: u04
+2025-10-19 20:54:49,332 - INFO - Fetching logs from SimpleListLogSource...
+2025-10-19 20:54:50,033 - INFO - 📧 Email sent to alert-team@example.com: Fraud alert detected! | Tx ID: t1002, User: u02, Amount: 5500.0 | Tx ID: t1002, User: u02, Amount: 5500.0
+2025-10-19 20:54:50,333 - INFO - 📞 IVR call to +1234567890 (simulated): Fraud alert detected! | Tx ID: t1002, User: u02, Amount: 5500.0 | Tx ID: t1002, User: u02
+2025-10-19 20:54:50,534 - INFO - 📧 Email sent to alert-team@example.com: Fraud alert detected! | Tx ID: t1004, User: u04, Amount: 8200.0 | Tx ID: t1004, User: u04, Amount: 8200.0
+2025-10-19 20:54:50,834 - INFO - 📞 IVR call to +1234567890 (simulated): Fraud alert detected! | Tx ID: t1004, User: u04, Amount: 8200.0 | Tx ID: t1004, User: u04
+2025-10-19 21:02:07,708 - INFO - Fetching logs from SimpleListLogSource...
+2025-10-19 21:02:08,409 - INFO - 📧 Email sent to alert-team@example.com: Fraud alert detected! | Tx ID: t1002, User: u02, Amount: 5500.0 | Tx ID: t1002, User: u02, Amount: 5500.0
+2025-10-19 21:02:08,709 - INFO - 📞 IVR call to +1234567890 (simulated): Fraud alert detected! | Tx ID: t1002, User: u02, Amount: 5500.0 | Tx ID: t1002, User: u02
+2025-10-19 21:02:08,910 - INFO - 📧 Email sent to alert-team@example.com: Fraud alert detected! | Tx ID: t1004, User: u04, Amount: 8200.0 | Tx ID: t1004, User: u04, Amount: 8200.0
+2025-10-19 21:02:09,211 - INFO - 📞 IVR call to +1234567890 (simulated): Fraud alert detected! | Tx ID: t1004, User: u04, Amount: 8200.0 | Tx ID: t1004, User: u04

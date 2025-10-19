@@ -1,10 +1,18 @@
+# ===============================================================
+# File: implementations.py
+# Description:
+#   Concrete implementations for LogSource, FraudDetector, and
+#   NotificationChannel interfaces.
+#   Demonstrates OOP principles: Inheritance, Encapsulation, Polymorphism.
+# ===============================================================
+
 import logging
 import os
 import time
 from typing import Dict, Any
 from src.interfaces import LogSource, FraudDetector, NotificationChannel
 
-# --- Renkli terminal desteği ---
+# --- Color terminal support ---
 try:
     from colorama import init, Fore, Style
     init(autoreset=True)
@@ -14,8 +22,7 @@ except ImportError:
     class Style:
         RESET_ALL = ""
 
-
-# --- Log dosyası yapılandırması ---
+# --- Log file setup ---
 os.makedirs("logs", exist_ok=True)
 file_handler = logging.FileHandler("logs/fraud_monitor.log", mode="a", encoding="utf-8")
 file_handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
@@ -29,19 +36,24 @@ if not logger.handlers:
 # ===============================================================
 # 🔹 Log Source
 # ===============================================================
+# OOP Principle: Inheritance (implements LogSource) & Encapsulation
+# Unit Reference: Unit 3 – Interfaces & Implementations
+# Explanation: Concrete class supplies simulated data; hides retrieval details behind get_logs().
 class SimpleListLogSource(LogSource):
     """Simulates a basic transaction log source."""
 
     def __init__(self):
+        # Encapsulation: internal log data hidden within the object
         self.logs = [
-            {"transaction_id": "t1001", "amount": 1200.0, "user_id": "u01"},
-            {"transaction_id": "t1002", "amount": 5500.0, "user_id": "u02"},
-            {"transaction_id": "t1003", "amount": 350.0, "user_id": "u03"},
-            {"transaction_id": "t1004", "amount": 8200.0, "user_id": "u04"},
-            {"transaction_id": "t1005", "amount": 420.0, "user_id": "u05"},
+            {"tx_id": "t1001", "amount": 1200.0, "user_id": "u01"},
+            {"tx_id": "t1002", "amount": 5500.0, "user_id": "u02"},
+            {"tx_id": "t1003", "amount": 350.0, "user_id": "u03"},
+            {"tx_id": "t1004", "amount": 8200.0, "user_id": "u04"},
+            {"tx_id": "t1005", "amount": 420.0, "user_id": "u05"},
         ]
 
     def get_logs(self):
+        """Implements interface method (Abstraction)."""
         logger.info("Fetching logs from SimpleListLogSource...")
         print(f"{Fore.CYAN}🔍 Fetching logs...{Style.RESET_ALL}")
         time.sleep(0.5)
@@ -51,6 +63,9 @@ class SimpleListLogSource(LogSource):
 # ===============================================================
 # 🔹 Detector
 # ===============================================================
+# OOP Principle: Inheritance (implements FraudDetector), SRP & Encapsulation
+# Unit Reference: Unit 4 – Maintainability & Testing
+# Explanation: Encapsulates threshold-based rule; single responsibility is anomaly decision.
 class SimpleRuleBasedDetector(FraudDetector):
     """Detects anomalies using a simple rule threshold."""
 
@@ -60,7 +75,7 @@ class SimpleRuleBasedDetector(FraudDetector):
         self.threshold = threshold
 
     def is_anomaly(self, log):
-        """Implements the required abstract method."""
+        """Implements the required abstract method (Abstraction)."""
         return log.get("amount", 0) > self.threshold
 
     def detect(self, logs):
@@ -71,11 +86,11 @@ class SimpleRuleBasedDetector(FraudDetector):
             if self.is_anomaly(log):
                 anomalies.append(log)
                 logger.warning(
-                    f"⚠️ ANOMALY DETECTED: Tx ID {log['transaction_id']} | "
+                    f"⚠️ ANOMALY DETECTED: Tx ID {log['tx_id']} | "
                     f"Amount: {log['amount']} | User: {log['user_id']}"
                 )
                 print(
-                    f"{Fore.RED}⚠️  ANOMALY: Tx ID {log['transaction_id']} | "
+                    f"{Fore.RED}⚠️  ANOMALY: Tx ID {log['tx_id']} | "
                     f"Amount: {log['amount']} | User: {log['user_id']}{Style.RESET_ALL}"
                 )
         if not anomalies:
@@ -87,6 +102,9 @@ class SimpleRuleBasedDetector(FraudDetector):
 # ===============================================================
 # 🔹 Notification Channels
 # ===============================================================
+# OOP Principle: Polymorphism (implements NotificationChannel)
+# Unit Reference: Unit 3 – Polymorphism in Practice
+# Explanation: Interchangeable alerting behavior through a shared interface.
 class EmailNotificationChannel(NotificationChannel):
     """Simulates sending fraud alert emails."""
 
@@ -100,7 +118,7 @@ class EmailNotificationChannel(NotificationChannel):
     def send(self, message: str, log_entry: Dict[str, Any]) -> None:
         """Simulated email sending with log context."""
         time.sleep(0.2)
-        tx = log_entry.get("transaction_id")
+        tx = log_entry.get("tx_id")
         amount = log_entry.get("amount")
         user = log_entry.get("user_id")
         full_message = f"{message} | Tx ID: {tx}, User: {user}, Amount: {amount}"
@@ -108,6 +126,9 @@ class EmailNotificationChannel(NotificationChannel):
         logger.info(f"📧 Email sent to {self.recipient_email}: {full_message}")
 
 
+# OOP Principle: Polymorphism & Encapsulation
+# Unit Reference: Unit 3 – Polymorphism in Practice
+# Explanation: Alternative alerting behavior; internal credentials/config encapsulated.
 class IVRNotificationChannel(NotificationChannel):
     """Simulates automated IVR call notifications."""
 
@@ -123,7 +144,7 @@ class IVRNotificationChannel(NotificationChannel):
     def send(self, message: str, log_entry: Dict[str, Any]) -> None:
         """Simulated IVR call sending."""
         time.sleep(0.3)
-        tx = log_entry.get("transaction_id")
+        tx = log_entry.get("tx_id")
         user = log_entry.get("user_id")
         print(f"{Fore.CYAN}📞 IVR call to {self.ivr_service_number} (simulated): {message} | Tx ID: {tx}, User: {user}{Style.RESET_ALL}")
         logger.info(f"📞 IVR call to {self.ivr_service_number} (simulated): {message} | Tx ID: {tx}, User: {user}")
@@ -132,6 +153,8 @@ class IVRNotificationChannel(NotificationChannel):
 # ===============================================================
 # 🔹 Summary Helper Function
 # ===============================================================
+# OOP Principle: Encapsulation & Reusability
+# Unit Reference: Unit 5 – Refactoring & Clean Code
 def summarize_detection(logs, anomalies, start_time):
     """Prints a runtime summary with color and logs."""
     duration = round(time.time() - start_time, 3)
